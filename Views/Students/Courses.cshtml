@@ -1,0 +1,49 @@
+﻿@model IList<Enrollment>
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h1>Листа на предмети</h1>
+
+<p><b>Студент: </b>@ViewData["student"]</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Предмет</th>
+            <th>Семестар</th>
+            <th>Година</th>
+            <th>Оцена</th>
+            <th>Датум на положување</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Semester)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishDate)
+                </td>
+                <td>
+                    <a asp-action="EnrollDetails" asp-route-id="@item.Id">Одбери</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index">Назад кон студентите</a>

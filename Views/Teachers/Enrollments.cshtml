@@ -1,0 +1,62 @@
+﻿@model Final.ViewModels.SearchYear
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h1>Листа на студенти</h1>
+<h5>@ViewData["teacher"]</h5>
+<hr />
+
+<p><b>Предмет: </b>@ViewData["course"]</p>
+
+<form asp-controller="Teachers" asp-action="Enrollments" method="get">
+    <p>
+        Година:&nbsp;&nbsp;&nbsp;
+        <select asp-for="Year" asp-items="Model.Years">
+            <option value="">Сите</option>
+        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="hidden" asp-for="CourseId" value="@ViewData["id"]"/>
+        <input type="submit" value="Примени" class="btn btn-primary" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Студент</th>
+            <th>Семестар</th>
+            <th>Година</th>
+            <th>Оцена</th>
+            <th>Датум на положување</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Enrollments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Semester)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishDate)
+                </td>
+                <td>
+                    <a asp-action="EditEnrollment" asp-route-id="@item.Id" asp-route-tid="@ViewData["tid"]" asp-route-sid="@item.StudentId" asp-route-cid="@item.CourseId" asp-route-year="@item.Year">Одбери</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Courses" asp-route-id="@ViewData["tid"]">Назад кон предметите</a>

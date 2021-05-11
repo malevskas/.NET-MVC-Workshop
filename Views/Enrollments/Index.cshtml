@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Final.Models.Enrollment>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Запишани студенти</h1>
+
+<p>
+    <a asp-action="Create">Додади нов</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Предмет</th>
+            <th>Студент</th>
+            <th>Семестар</th>
+            <th>Година</th>
+            <th>Оцена</th>
+            <th>Датум на положување</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Промени</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Избриши</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

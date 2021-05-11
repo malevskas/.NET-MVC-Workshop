@@ -1,0 +1,46 @@
+﻿@model Final.Models.Student
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Детали</h1>
+
+<div>
+    <h4>Студент</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">Индекс</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StudentId)
+        </dd>
+        <dt class = "col-sm-2">Име</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">Презиме</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class = "col-sm-2">Датум на упис</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EnrollmentDate)
+        </dd>
+        <dt class = "col-sm-2">Кредити</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AcquiredCredits)
+        </dd>
+        <dt class = "col-sm-2">Семестар</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CurrentSemester)
+        </dd>
+        <dt class = "col-sm-2">Степен</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EducationLevel)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Промени</a> |
+    <a asp-action="Index">Назад кон листата</a>
+</div>

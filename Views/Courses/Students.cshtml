@@ -1,0 +1,50 @@
+﻿@model IList<Enrollment>
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+<h1>Листа на студенти</h1>
+
+<p><b>Предмет: </b>@ViewData["course"]</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Студент</th>
+            <th>Семестар</th>
+            <th>Година</th>
+            <th>Оцена</th>
+            <th>Датум на положување</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Semester)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Промени</a> |
+                    <a asp-action="DetailsEnrollment" asp-route-id="@item.Id" asp-route-tid="@ViewData["tid"]">Детали</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index">Назад кон предметите</a>

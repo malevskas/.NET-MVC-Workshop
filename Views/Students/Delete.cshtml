@@ -1,0 +1,49 @@
+﻿@model Final.Models.Student
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Избриши</h1>
+
+<h3>Дали сте сигурни?</h3>
+<div>
+    <h4>Студент</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">Индекс</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StudentId)
+        </dd>
+        <dt class = "col-sm-2">Име</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">Презиме</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class = "col-sm-2">Датум на упис</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EnrollmentDate)
+        </dd>
+        <dt class = "col-sm-2">Кредити</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AcquiredCredits)
+        </dd>
+        <dt class = "col-sm-2">Семестар</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CurrentSemester)
+        </dd>
+        <dt class = "col-sm-2">Степен</dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EducationLevel)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Избриши" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад кон листата</a>
+    </form>
+</div>
