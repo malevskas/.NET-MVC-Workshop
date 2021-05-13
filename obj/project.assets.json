@@ -7154,11 +7154,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Simona Malevska\\source\\repos\\Final\\Final.csproj",
+      "projectUniqueName": "C:\\Users\\Simona Malevska\\Desktop\\RSWEBWorkshop\\Final.csproj",
       "projectName": "Final",
-      "projectPath": "C:\\Users\\Simona Malevska\\source\\repos\\Final\\Final.csproj",
+      "projectPath": "C:\\Users\\Simona Malevska\\Desktop\\RSWEBWorkshop\\Final.csproj",
       "packagesPath": "C:\\Users\\Simona Malevska\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Simona Malevska\\source\\repos\\Final\\obj\\",
+      "outputPath": "C:\\Users\\Simona Malevska\\Desktop\\RSWEBWorkshop\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Simona Malevska\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using Final.Data;
 using Final.Models;
 using Final.ViewModels;
+using System.IO;
 
 namespace Final.Controllers
 {
     public class StudentsController : Controller
     {
         private readonly FinalContext _context;
+        private readonly Microsoft.AspNetCore.Hosting.IWebHostEnvironment webHostEnvironment;
 
-        public StudentsController(FinalContext context)
+        public StudentsController(FinalContext context, Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            webHostEnvironment = hostEnvironment;
         }
 
         // GET: Students
@@ -71,15 +74,34 @@ namespace Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StudentId,FirstName,LastName,EnrollmentDate,AcquiredCredits,CurrentSemester,EducationLevel")] Student student)
+        public async Task<IActionResult> Create([Bind("Id,StudentId,FirstName,LastName,EnrollmentDate,AcquiredCredits,CurrentSemester,EducationLevel,ProfileImage")] Student student)
         {
             if (ModelState.IsValid)
             {
+                string uniqueFileName = UploadedFile(student);
+                student.ProfilePicture = uniqueFileName;
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(student);
+        }
+
+        private string UploadedFile(Student model)
+        {
+            string uniqueFileName = null;
+
+            if (model.ProfileImage != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(model.ProfileImage.FileName);
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
 
         // GET: Students/Edit/5
@@ -103,7 +125,7 @@ namespace Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,StudentId,FirstName,LastName,EnrollmentDate,AcquiredCredits,CurrentSemester,EducationLevel")] Student student)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,StudentId,FirstName,LastName,EnrollmentDate,AcquiredCredits,CurrentSemester,EducationLevel,ProfileImage")] Student student)
         {
             if (id != student.Id)
             {
@@ -114,6 +136,8 @@ namespace Final.Controllers
             {
                 try
                 {
+                    string uniqueFileName = UploadedFile(student);
+                    student.ProfilePicture = uniqueFileName;
                     _context.Update(student);
                     await _context.SaveChangesAsync();
                 }

@@ -43,6 +43,10 @@
         {
             <tr>
                 <td>
+                    <img src="~/images/@item.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40" 
+                         asp-append-version="true" />
                     @Html.DisplayFor(modelItem => item.FullName)
                 </td>
                 <td>

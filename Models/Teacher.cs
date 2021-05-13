@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,6 +23,9 @@ namespace Final.Models
         public string OfficeNumber { get; set; }
         [DataType(DataType.Date)]
         public DateTime HireDate { get; set; }
+        [NotMapped]
+        public IFormFile ProfileImage { get; set; }
+        public string ProfilePicture { get; set; }
         [InverseProperty("FirstTeacher")]
         public ICollection<Course> Courses1 { get; set; }
         [InverseProperty("SecondTeacher")]

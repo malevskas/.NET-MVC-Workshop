@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form enctype="multipart/form-data" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="StudentId" class="control-label">Индекс</label>
@@ -46,6 +46,14 @@
                 <label asp-for="EducationLevel" class="control-label">Степен</label>
                 <input asp-for="EducationLevel" class="form-control" />
                 <span asp-validation-for="EducationLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProfileImage" class="control-label">Слика за профил</label>
+                <div class="custom-file">
+                    <input asp-for="ProfileImage" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="ProfileImage" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Додади" class="btn btn-primary" />
