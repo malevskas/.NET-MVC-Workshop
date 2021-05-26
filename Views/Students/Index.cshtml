@@ -5,9 +5,13 @@
 }
 
 <h1>Студенти</h1>
-<p>
-    <a asp-action="Create">Додади нов</a>
-</p>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Додади нов</a>
+    </p>
+}
 
 <hr />
 
@@ -61,10 +65,11 @@
                     @Html.DisplayFor(modelItem => item.EducationLevel)
                 </td>
                 <td>
-                    <a asp-action="Courses" asp-route-id="@item.Id">Предмети</a> |
-                    <a asp-action="Edit" asp-route-id="@item.Id">Промени</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Избриши</a>
+                    <a asp-action="Courses" asp-route-id="@item.Id">Предмети |</a>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {<a asp-action="Edit" asp-route-id="@item.Id">Промени |</a>
+                     <a asp-action="Delete" asp-route-id="@item.Id">Избриши |</a>}
+                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a>
                 </td>
             </tr>
         }

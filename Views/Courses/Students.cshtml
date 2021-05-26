@@ -39,8 +39,7 @@
                     @Html.DisplayFor(modelItem => item.FinishDate)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Промени</a> |
-                    <a asp-action="DetailsEnrollment" asp-route-id="@item.Id" asp-route-tid="@ViewData["tid"]">Детали</a>
+                    <a asp-action="DetailsEnrollment" asp-route-id="@item.Id" >Одбери</a>
                 </td>
             </tr>
         }

@@ -1,4 +1,4 @@
-﻿@model Final.Models.Enrollment
+﻿@model Final.ViewModels.AddStudentVM
 
 @{
     ViewData["Title"] = "Create";
@@ -10,18 +10,19 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="Courses" asp-action="Enroll">
+        <form asp-controller="Courses" asp-action="Enroll" asp-route-id="@Model.Course.Id">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Course.Id" />
             <div class="form-group">
-                <label asp-for="CourseId" class="control-label">Предмет</label>
-                <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                <label asp-for="Course.Title" class="control-label">Име</label>
+                <input asp-for="Course.Title" class="form-control" />
+                <span asp-validation-for="Course.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StudentId" class="control-label">Студент</label>
-                <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId">
-                    <option value="">Одбери</option>
-                </select>
+                <label class="control-label">Студенти</label>
+                <select asp-for="SelectedStudents" class="form-control js-example-basic-multiple"
+                        asp-items="Model.StudentList"> </select>
+                <span asp-validation-for="SelectedStudents" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Semester" class="control-label">Семестар</label>
@@ -30,48 +31,42 @@
             </div>
             <div class="form-group">
                 <label asp-for="Year" class="control-label">Година</label>
-                <input asp-for="Year" class="form-control" value="" />
+                <input asp-for="Year" class="form-control" value="0" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Grade" class="control-label">Оцена</label>
-                <input asp-for="Grade" class="form-control" value="0" />
-                <span asp-validation-for="Grade" class="text-danger"></span>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Course.Credits" class="control-label">Кредити</label>
+                <input asp-for="Course.Credits" class="form-control" />
+                <span asp-validation-for="Course.Credits" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SeminalUrl" class="control-label">Линк од колоквиум</label>
-                <input asp-for="SeminalUrl" class="form-control" />
-                <span asp-validation-for="SeminalUrl" class="text-danger"></span>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Course.Semester" class="control-label">Семестар</label>
+                <input asp-for="Course.Semester" class="form-control" />
+                <span asp-validation-for="Course.Semester" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ProjectUrl" class="control-label">Линк од проект</label>
-                <input asp-for="ProjectUrl" class="form-control" />
-                <span asp-validation-for="ProjectUrl" class="text-danger"></span>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Course.Program" class="control-label">Насока</label>
+                <input asp-for="Course.Program" class="form-control" />
+                <span asp-validation-for="Course.Program" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ExamPoints" class="control-label">Вкупно поени</label>
-                <input asp-for="ExamPoints" class="form-control" value="0" />
-                <span asp-validation-for="ExamPoints" class="text-danger"></span>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Course.EducationLevel" class="control-label">Степен</label>
+                <input asp-for="Course.EducationLevel" class="form-control" />
+                <span asp-validation-for="Course.EducationLevel" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SeminalPoints" class="control-label">Поени од колоквиум</label>
-                <input asp-for="SeminalPoints" class="form-control" value="0" />
-                <span asp-validation-for="SeminalPoints" class="text-danger"></span>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Course.FirstTeacherId" class="control-label">Прв наставник</label>
+                <select asp-for="Course.FirstTeacherId" class="form-control" asp-items="ViewBag.FirstTeacherId">
+                    <option value="">Одбери</option>
+                </select>
+                <span asp-validation-for="Course.FirstTeacherId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ProjectPoints" class="control-label">Поени од проект</label>
-                <input asp-for="ProjectPoints" class="form-control" value="0" />
-                <span asp-validation-for="ProjectPoints" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AdditionalPoints" class="control-label">Дополнителни поени</label>
-                <input asp-for="AdditionalPoints" class="form-control" value="0" />
-                <span asp-validation-for="AdditionalPoints" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FinishDate" class="control-label">Датум на положување</label>
-                <input asp-for="FinishDate" class="form-control" />
-                <span asp-validation-for="FinishDate" class="text-danger"></span>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Course.SecondTeacherId" class="control-label">Втор наставник</label>
+                <select asp-for="Course.SecondTeacherId" class="form-control" asp-items="ViewBag.SecondTeacherId">
+                    <option value="">Одбери</option>
+                </select>
+                <span asp-validation-for="Course.SecondTeacherId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Додади" class="btn btn-primary" />
@@ -79,11 +74,17 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Назад кон листата</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#SelectedStudents").select2();
+    });
+</script>
 }

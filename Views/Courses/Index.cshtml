@@ -6,9 +6,12 @@
 
 <h1>Предмети</h1>
 
-<p>
-    <a asp-action="Create">Додади нов</a>
-</p>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Додади нов</a>
+    </p>
+}
 
 <hr />
 
@@ -17,9 +20,9 @@
         Наслов:&nbsp;&nbsp;&nbsp;
         <input type="text" asp-for="SearchString" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Семестар:&nbsp;&nbsp;&nbsp;
-    <select asp-for="CourseSemester" asp-items="Model.Semesters">
-        <option value="">Сите</option>
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select asp-for="CourseSemester" asp-items="Model.Semesters">
+            <option value="">Сите</option>
+        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Програма:&nbsp;&nbsp;&nbsp;
         <select asp-for="CourseProgram" asp-items="Model.Programs">
             <option value="">Сите</option>
@@ -67,11 +70,14 @@
                     @Html.DisplayFor(modelItem => item.SecondTeacher.FullName)
                 </td>
                 <td>
-                    <a asp-action="Enroll" asp-route-courseid="@item.Id">Запиши студент</a> |
-                    <a asp-action="Students" asp-route-id="@item.Id">Студенти</a> |
-                    <a asp-action="Edit" asp-route-id="@item.Id">Промени</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Избриши</a>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {<a asp-action="Enroll" asp-route-courseid="@item.Id">Запиши студент |</a>}
+                    <a asp-action="Students" asp-route-id="@item.Id">Студенти |</a>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {<a asp-action="Edit" asp-route-id="@item.Id">Промени |</a>}
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {<a asp-action="Delete" asp-route-id="@item.Id">Избриши |</a>}
+                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a>
                 </td>
             </tr>
         }
